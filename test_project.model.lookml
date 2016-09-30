@@ -10,3 +10,4 @@
   always_filter:
     date_filter: 2 days
 
+- explore: postcodes
