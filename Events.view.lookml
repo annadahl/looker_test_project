@@ -346,3 +346,6 @@
     approximate_threshold: 100000
     drill_fields: [name]
 
+  - measure: snittalder
+    type: avg
+    sql: ${TABLE}.a_user_age
