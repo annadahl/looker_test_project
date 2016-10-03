@@ -11,3 +11,7 @@
     date_filter: 2 days
 
 - explore: postcodes
+
+- explore: Nettrafikk
+  always_filter:
+    date_filter: 2 days
