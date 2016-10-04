@@ -188,7 +188,7 @@
       a_edition: '-eavis'
   
   - measure: pageviews_epaper
-    label: 'Sidevisninger nett/mobil'
+    label: 'Sidevisninger eAvis'
     type: count
     approximate_threshold: 100
     filters:
