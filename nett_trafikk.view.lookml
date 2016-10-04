@@ -167,6 +167,12 @@
     type: count_distinct
     approximate_threshold: 100
     sql: ${TABLE}.browserid
+  
+  - measure: visits
+    label: 'Besøk'
+    type: count_distinct
+    approximate_threshold: 100
+    sql: ${TABLE}.visitid
     
   - measure: page_views 
     label: 'Sidevisninger (alle)'
