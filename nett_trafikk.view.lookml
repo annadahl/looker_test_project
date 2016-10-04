@@ -24,20 +24,14 @@
     sql: ${TABLE}.a_error
     group_label: 'Generelt'
 
-  - dimension: a_livenews
-    label: 'Livenews?'
-    type: string
-    sql: ${TABLE}.a_livenews
-    group_label: 'Generelt'
-
   - dimension: a_networksite
-    label: 'Nettverks-nettsted'
+    label: 'Nettverksnettsted'
     type: string
     sql: ${TABLE}.a_networksite
     group_label: 'Generelt'
 
   - dimension: a_platform_version
-    label: 'Plattform-versjon'
+    label: 'Plattformversjon'
     type: string
     sql: ${TABLE}.a_platform_version
     group_label: 'Generelt'
@@ -77,13 +71,13 @@
   - dimension: a_datepublish
     label: 'Publiseringsdato'
     type: string
-    sql: ${TABLE}.a_datepublish
+    sql: timestamp(${TABLE}.a_datepublish)
     group_label: 'Artikkel-informasjon'
 
   - dimension: a_dateupdate
     label: 'Sist oppdatert (dato)'
     type: string
-    sql: ${TABLE}.a_dateupdate
+    sql: timestamp(${TABLE}.a_dateupdate)
     group_label: 'Artikkel-informasjon'
     
   - dimension: a_originpub
@@ -97,14 +91,14 @@
 
   - dimension: a_gallery_currentcard
     label: 'Bilde nr'
-    type: string
-    sql: ${TABLE}.a_gallery_currentcard
+    type: number
+    sql: integer(${TABLE}.a_gallery_currentcard)
     group_label: 'Bildegalleri'
 
   - dimension: a_gallery_totalcards
     label: 'Antall bilder'
-    type: string
-    sql: ${TABLE}.a_gallery_totalcards
+    type: number
+    sql: integer(${TABLE}.a_gallery_totalcards)
     group_label: 'Bildegalleri'
     
 # Kjøpsløp
@@ -135,8 +129,8 @@
 
   - dimension: a_order_price
     label: 'Pris'
-    type: string
-    sql: ${TABLE}.a_order_price
+    type: number
+    sql: integer(${TABLE}.a_order_price)
     group_label: 'Abonnementsbestilling (kjøpsløp)'
 
   - dimension: a_order_priceunit
@@ -156,6 +150,282 @@
     type: string
     sql: ${TABLE}.a_order_step
     group_label: 'Abonnementsbestilling (kjøpsløp)'
+
+  - dimension: a_relationcount
+    label: 'Antall relasjoner'
+    type: number
+    sql: integer(${TABLE}.a_relationcount)
+    group_label: 'Artikkel-info'
+
+  - dimension: a_relationcount_embed
+    type: string
+    sql: ${TABLE}.a_relationcount_embed
+
+  - dimension: a_relationcount_factbox
+    type: string
+    sql: ${TABLE}.a_relationcount_factbox
+
+  - dimension: a_relationcount_feature
+    type: string
+    sql: ${TABLE}.a_relationcount_feature
+
+  - dimension: a_relationcount_gallery
+    type: string
+    sql: ${TABLE}.a_relationcount_gallery
+
+  - dimension: a_relationcount_media
+    type: string
+    sql: ${TABLE}.a_relationcount_media
+
+  - dimension: a_relationcount_opinion
+    type: string
+    sql: ${TABLE}.a_relationcount_opinion
+
+  - dimension: a_relationcount_picture
+    type: string
+    sql: ${TABLE}.a_relationcount_picture
+
+  - dimension: a_relationcount_quote
+    type: string
+    sql: ${TABLE}.a_relationcount_quote
+
+  - dimension: a_relationcount_story
+    type: string
+    sql: ${TABLE}.a_relationcount_story
+
+  - dimension: a_relationcount_video
+    type: string
+    sql: ${TABLE}.a_relationcount_video
+
+  - dimension: a_section
+    label: 'Seksjon'
+    type: string
+    sql: ${TABLE}.a_section
+
+  - dimension: a_sectiontype
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sectiontype
+
+  - dimension: a_sub_aid_customer_id
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_aid_customer_id
+
+  - dimension: a_sub_bundle
+    label: 'Bundlet publikasjon'
+    type: string
+    sql: ${TABLE}.a_sub_bundle
+
+  - dimension: a_sub_class
+    label: 'Tilgangstype' # owner, family, trial
+    description: 'Gyldige verdier er "owner", "family" og "trial".'
+    type: string
+    sql: ${TABLE}.a_sub_class
+
+  - dimension: a_incentive
+    label: 'Insentivvisning'
+    description: 'Bruker fikk kun se en teaser av artikkelen.'
+    type: yesno
+    sql: case when ${TABLE}.a_sub_contentpresentation = 'teaser' then true else false end
+
+  - dimension: a_sub_id
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_id
+
+  - dimension: a_sub_id_source
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_id_source
+
+  - dimension: a_sub_key
+    label: 'Abonnement-ID'
+    type: string
+    sql: ${TABLE}.a_sub_key
+
+  - dimension: a_premium
+    label: 'Plussartikkel'
+    type: yesno
+    sql: case when ${TABLE}.a_sub_model = 'total' then true else false end
+
+  - dimension: a_sub_status
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_status
+
+
+  # TO BE CONTINUED...
+
+
+  - dimension: a_sub_type
+    type: string
+    sql: ${TABLE}.a_sub_type
+
+  - dimension: a_tag
+    type: string
+    sql: ${TABLE}.a_tag
+
+  - dimension: a_timepublish
+    type: string
+    sql: ${TABLE}.a_timepublish
+
+  - dimension: a_timeupdate
+    type: string
+    sql: ${TABLE}.a_timeupdate
+
+  - dimension: a_title
+    type: string
+    sql: ${TABLE}.a_title
+
+  - dimension: alder
+    type: number
+    sql: case when ((integer(${TABLE}.a_user_age))>12 or (integer(${TABLE}.a_user_age)<100)) then integer(${TABLE}.a_user_age) else null end
+
+  - dimension: aldersgrupper
+    type: tier
+    tiers: [12,20,30,40,50,60,70,80,90,100]
+    style: classic
+    sql: case when ((integer(${TABLE}.a_user_age))>12 or (integer(${TABLE}.a_user_age)<100)) then integer(${TABLE}.a_user_age) else null end
+
+  - dimension: a_user_aid_deck
+    type: string
+    sql: ${TABLE}.a_user_aid_deck
+
+  - dimension: a_user_gender
+    type: string
+    sql: ${TABLE}.a_user_gender
+
+  - dimension: a_user_id_source
+    type: string
+    sql: ${TABLE}.a_user_id_source
+
+  - dimension: a_user_key
+    type: string
+    sql: ${TABLE}.a_user_key
+
+  - dimension: a_user_login_error
+    type: string
+    sql: ${TABLE}.a_user_login_error
+
+  - dimension: a_user_login_requested_url
+    type: string
+    sql: ${TABLE}.a_user_login_requested_url
+
+  - dimension: a_user_login_step
+    type: string
+    sql: ${TABLE}.a_user_login_step
+
+  - dimension: a_user_staff
+    type: string
+    sql: ${TABLE}.a_user_staff
+
+  - dimension: a_view
+    type: string
+    sql: ${TABLE}.a_view
+
+  - dimension: a_virtual
+    type: string
+    sql: ${TABLE}.a_virtual
+
+  - dimension: a_wordcount
+    type: string
+    sql: ${TABLE}.a_wordcount
+
+  - dimension: browserid
+    type: string
+    sql: ${TABLE}.browserid
+
+  - dimension_group: dataflow_insert_timestamp
+    type: time
+    timeframes: [time, date, week, month]
+    sql: ${TABLE}.dataflow_insert_timestamp
+
+  - dimension: extradata
+    type: string
+    sql: ${TABLE}.extradata
+
+  - dimension: headers_accept
+    type: string
+    sql: ${TABLE}.headers_accept
+
+  - dimension: headers_accept_encoding
+    type: string
+    sql: ${TABLE}.headers_accept_encoding
+
+  - dimension: headers_accept_language
+    type: string
+    sql: ${TABLE}.headers_accept_language
+
+  - dimension: headers_connection
+    type: string
+    sql: ${TABLE}.headers_connection
+
+  - dimension: headers_content_length
+    type: string
+    sql: ${TABLE}.headers_content_length
+
+  - dimension: headers_content_type
+    type: string
+    sql: ${TABLE}.headers_content_type
+
+  - dimension: headers_origin
+    hidden: true
+    type: string
+    sql: ${TABLE}.headers_origin
+  
+
+  - dimension: headers_referer
+    type: string
+    sql: ${TABLE}.headers_referer
+
+  - dimension: headers_user_agent
+    type: string
+    sql: ${TABLE}.headers_user_agent
+
+  - dimension: sidenavn
+    type: string
+    sql: ${TABLE}.name
+
+  - dimension: ns_category
+    type: string
+    sql: ${TABLE}.ns_category
+
+  - dimension: ns_site
+    type: string
+    sql: ${TABLE}.ns_site
+
+  - dimension: referrer
+    type: string
+    sql: ${TABLE}.referrer
+  
+  - dimension: referrer_domain
+    type: string
+    sql: DOMAIN(${TABLE}.referrer)
+
+  - dimension: remoteip
+    type: string
+    sql: ${TABLE}.remoteip
+
+  - dimension_group: time
+    type: time
+    timeframes: [time, date, week,hour, month]
+    sql: ${TABLE}.time
+    convert_tz: true
+
+  - dimension: url
+    type: string
+    sql: ${TABLE}.url
+
+  - dimension: visitid
+    type: string
+    sql: ${TABLE}.visitid
+
+  - dimension_group: window_timestamp
+    hidden: true
+    type: time
+    timeframes: [time, date, week, hour, month]
+    sql: ${TABLE}.window_timestamp
 
 
 # Målinger
