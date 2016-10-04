@@ -271,7 +271,7 @@
     sql: |
     
         CASE 
-          WHEN (${TABLE}.page IS NOT NULL 
+          WHEN (${TABLE}.sidenavn IS NOT NULL 
             and ${TABLE}.a_sub_model is not null 
             and ${TABLE}.a_sub_model!='free' 
             and ${TABLE}.a_sub_contentpresentation=='full') 
