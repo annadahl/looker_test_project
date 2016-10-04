@@ -8,6 +8,10 @@
 
 # Generelt
 
+  - dimension: page_name
+    type: string
+    sql: ${TABLE}.name
+
   - dimension: a_edition
     label: 'Utgave'
     type: string
@@ -159,45 +163,33 @@
   - measure: aid_users
     label: 'aID-brukere'
     type: count_distinct
-    approximate_threshold: 100
+    approximate_threshold: 10000
     sql: ${TABLE}.a_user_key
 
   - measure: browsers
     label: 'Nettlesere'
     type: count_distinct
-    approximate_threshold: 100
+    approximate_threshold: 10000
     sql: ${TABLE}.browserid
   
   - measure: visits
     label: 'Besøk'
     type: count_distinct
-    approximate_threshold: 100
+    approximate_threshold: 10000
     sql: ${TABLE}.visitid
     
   - measure: page_views 
     label: 'Sidevisninger (alle)'
     type: count
-    approximate_threshold: 100    
+    approximate_threshold: 10000
+    filters:
+      page_name: '-NULL'
     # her blir det nok noe filtrering etter hvert
-  
-  - measure: pageviews_web
-    label: 'Sidevisninger nett/mobil'
-    type: count
-    approximate_threshold: 100
-    filters:
-      a_edition: '-eavis'
-  
-  - measure: pageviews_epaper
-    label: 'Sidevisninger eAvis'
-    type: count
-    approximate_threshold: 100
-    filters:
-      a_edition: 'eavis'
-    
+
   - measure: acpids
     label: 'Unike artikler'
     type: count_distinct
-    approximate_threshold: 100
+    approximate_threshold: 10000
     sql: ${a_acpid}
     
 
