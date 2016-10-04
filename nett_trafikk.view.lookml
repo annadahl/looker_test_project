@@ -223,6 +223,12 @@
     type: string
     sql: ${TABLE}.a_sub_class
 
+  - dimension: a_sub_contentpresentation ## beholder gammelt felt, men setter til hidden 
+    hidden: true
+    description: 'Bruker fikk kun se en teaser av artikkelen.'
+    type: string
+    sql: ${TABLE}.a_sub_contentpresentation
+
   - dimension: a_incentive
     label: 'Insentivvisning'
     description: 'Bruker fikk kun se en teaser av artikkelen.'
@@ -244,6 +250,11 @@
     type: string
     sql: ${TABLE}.a_sub_key
 
+  - dimension: a_sub_model ##beholder gammelt felt, men setter til hidden
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_model
+
   - dimension: a_premium
     label: 'Plussartikkel'
     type: yesno
@@ -254,6 +265,17 @@
     type: string
     sql: ${TABLE}.a_sub_status
 
+  - dimension: a_plusslesing
+    label: 'Plusslesing'
+    type: yesno
+    sql: |
+    
+        CASE 
+          WHEN (${TABLE}.page IS NOT NULL 
+            and ${TABLE}.a_sub_model is not null 
+            and ${TABLE}.a_sub_model!='free' 
+            and ${TABLE}.a_sub_contentpresentation=='full') 
+          THEN true ELSE false END
 
   # TO BE CONTINUED...
 
