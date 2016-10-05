@@ -277,6 +277,24 @@
             and ${TABLE}.a_sub_contentpresentation=='full') 
           THEN true ELSE false END
 
+  - dimension: a_viewtype
+    label: 'Visningstype'
+    type: string
+    sql: |
+    
+        CASE 
+          WHEN (${TABLE}.name IS NOT NULL 
+            and ${TABLE}.a_sub_model is not null 
+            and ${TABLE}.a_sub_model!='free' 
+            and ${TABLE}.a_sub_contentpresentation=='full') 
+          THEN 'pluss' 
+          WHEN (${TABLE}.name IS NOT NULL 
+            and ${TABLE}.a_sub_model is not null 
+            and ${TABLE}.a_sub_model!='free' 
+            and ${TABLE}.a_sub_contentpresentation=='teaser') 
+          THEN 'incentiv'
+        ELSE 'annet' END
+
   # TO BE CONTINUED...
 
 
