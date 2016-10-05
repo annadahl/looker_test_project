@@ -36,6 +36,76 @@
     type: string
     sql: ${TABLE}.a_platform_version
     group_label: 'Generelt'
+  
+  - dimension: a_section
+    label: 'Seksjon'
+    type: string
+    sql: ${TABLE}.a_section
+    group_label: 'Generelt'
+
+  - dimension: a_tag
+    label: 'Tag'
+    type: string
+    sql: ${TABLE}.a_tag
+    group_label: 'Generelt'
+  
+  - dimension: a_view
+    label: 'Visningsmodus'
+    description: 'Kan være mobile, tablet, desktop, responsice, smartphone' 
+    type: string
+    sql: ${TABLE}.a_view
+    group_label: 'Generelt'
+
+  - dimension: a_virtual
+    label: 'Avis'
+    description: 'F.eks. "fb" for www.f-b.no, "ba" for www.ba.no'
+    type: string
+    sql: ${TABLE}.a_virtual
+    group_label: 'Generelt'
+  
+  - dimension: browserid
+    label: 'Nettleser'
+    type: string
+    sql: ${TABLE}.browserid
+    group_label: 'Generelt'
+  
+  - dimension: extradata
+    label: 'Ekstra data'
+    type: string
+    sql: ${TABLE}.extradata
+    group_label: 'Generelt'
+  
+  - dimension: referrer
+    label: 'Referrer'
+    type: string
+    sql: ${TABLE}.referrer
+    group_label: 'Generelt'
+  
+  - dimension: referrer_domain
+    label: 'Referrer-domene'
+    type: string
+    sql: DOMAIN(${TABLE}.referrer)
+    group_label: 'Generelt'
+  
+  - dimension_group: time
+    label: 'Tid'
+    type: time
+    timeframes: [time, date, week,hour, month]
+    sql: ${TABLE}.time
+    convert_tz: true
+    group_label: 'Generelt'
+
+  - dimension: url
+    label: 'URL (nettadresse)'
+    type: string
+    sql: ${TABLE}.url
+    group_label: 'Generelt'
+
+  - dimension: visitid
+    label: 'Besøks-ID'
+    type: string
+    sql: ${TABLE}.visitid
+    group_label: 'Generelt'
 
 
 # Artikkel-informasjon
@@ -87,6 +157,142 @@
     type: string
     sql: ${TABLE}.a_originpub
     group_label: 'Artikkel-informasjon'
+  - dimension: a_relationcount
+    label: 'Totalt antall relaterte elementer'
+    type: number
+    sql: integer(${TABLE}.a_relationcount)
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_embed
+    label: 'Antall embedder'
+    type: string
+    sql: ${TABLE}.a_relationcount_embed
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_factbox
+    label: 'Antall faktabokser'
+    type: string
+    sql: ${TABLE}.a_relationcount_factbox
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_feature
+    label: 'Antall relaterte feature-artikler'
+    type: string
+    sql: ${TABLE}.a_relationcount_feature
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_gallery
+    label: 'Antall relaterte bildegallerier'
+    type: string
+    sql: ${TABLE}.a_relationcount_gallery
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_media
+    label: 'Antall relaterte media' #SJEKK
+    type: string
+    sql: ${TABLE}.a_relationcount_media
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_opinion
+    label: 'Antall relaterte debattartikler' #SJEKK
+    type: string
+    sql: ${TABLE}.a_relationcount_opinion
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_picture
+    label: 'Antall relaterte bilder'
+    type: string
+    sql: ${TABLE}.a_relationcount_picture
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_quote
+    label: 'Antall relaterte sitat'
+    type: string
+    sql: ${TABLE}.a_relationcount_quote
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_story
+    label: 'Antall relaterte artikler' #SJEKK!
+    type: string
+    sql: ${TABLE}.a_relationcount_story
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_relationcount_video
+    label: 'Antall relaterte videoer'
+    type: string
+    sql: ${TABLE}.a_relationcount_video
+    group_label: 'Artikkel-informasjon'
+    
+  - dimension: a_incentive
+    label: 'Insentivvisning'
+    description: 'Bruker fikk kun se en teaser av artikkelen.'
+    type: yesno
+    sql: case when ${TABLE}.a_sub_contentpresentation = 'teaser' then true else false end
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_premium
+    label: 'Plussartikkel'
+    type: yesno
+    sql: case when ${TABLE}.a_sub_model = 'total' then true else false end
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_viewtype
+    label: 'Visningstype'
+    type: string
+    sql: |
+    
+        CASE 
+          WHEN (${TABLE}.name IS NOT NULL 
+            and ${TABLE}.a_sub_model is not null 
+            and ${TABLE}.a_sub_model!='free' 
+            and ${TABLE}.a_sub_contentpresentation=='full') 
+          THEN 'fullvisning' 
+          WHEN (${TABLE}.name IS NOT NULL 
+            and ${TABLE}.a_sub_model is not null 
+            and ${TABLE}.a_sub_model!='free' 
+            and ${TABLE}.a_sub_contentpresentation=='teaser') 
+          THEN 'incentiv'
+        ELSE 'aapen' END
+    group_label: 'Artikkel-informasjon'
+
+  - dimension: a_plusslesing
+    label: 'Plusslesing'
+    type: yesno
+    sql: |
+    
+        CASE 
+          WHEN (${TABLE}.name IS NOT NULL 
+            and ${TABLE}.a_sub_model is not null 
+            and ${TABLE}.a_sub_model!='free' 
+            and ${TABLE}.a_sub_contentpresentation=='full') 
+          THEN true ELSE false END
+    group_label: 'Artikkel-informasjon'
+    
+  - dimension: a_wordcount
+    label: 'Antall ord'
+    type: string
+    sql: ${TABLE}.a_wordcount
+    group_label: 'Artikkel-informasjon'
+    
+  - dimension: a_timepublish
+    label: 'Publiseringstidspunkt'
+    type: string
+    sql: ${TABLE}.a_timepublish
+    group_label: 'Artikkel-informasjon' #SJEKK
+
+  - dimension: a_timeupdate
+    label: 'Oppdateringstidspunkt'
+    type: string
+    sql: ${TABLE}.a_timeupdate
+    group_label: 'Artikkel-informasjon' #SJEKK
+
+  - dimension: a_title
+    label: 'Tittel'
+    type: string
+    sql: ${TABLE}.a_title
+    group_label: 'Artikkel-informasjon' #SJEKK
+  
+
 
 
 # Bildegalleri
@@ -154,166 +360,37 @@
     sql: ${TABLE}.a_order_step
     group_label: 'Abonnementsbestilling (kjøpsløp)'
 
-  - dimension: a_relationcount
-    label: 'Totalt antall relaterte elementer'
-    type: number
-    sql: integer(${TABLE}.a_relationcount)
-    group_label: 'Artikkel-info'
 
-  - dimension: a_relationcount_embed
-    label: 'Antall embedder'
-    type: string
-    sql: ${TABLE}.a_relationcount_embed
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_factbox
-    label: 'Antall faktabokser'
-    type: string
-    sql: ${TABLE}.a_relationcount_factbox
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_feature
-    label: 'Antall relaterte feature-artikler'
-    type: string
-    sql: ${TABLE}.a_relationcount_feature
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_gallery
-    label: 'Antall relaterte bildegallerier'
-    type: string
-    sql: ${TABLE}.a_relationcount_gallery
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_media
-    label: 'Antall relaterte media' #SJEKK
-    type: string
-    sql: ${TABLE}.a_relationcount_media
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_opinion
-    label: 'Antall relaterte debattartikler' #SJEKK
-    type: string
-    sql: ${TABLE}.a_relationcount_opinion
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_picture
-    label: 'Antall relaterte bilder'
-    type: string
-    sql: ${TABLE}.a_relationcount_picture
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_quote
-    label: 'Antall relaterte sitat'
-    type: string
-    sql: ${TABLE}.a_relationcount_quote
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_story
-    label: 'Antall relaterte artikler' #SJEKK!
-    type: string
-    sql: ${TABLE}.a_relationcount_story
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_relationcount_video
-    label: 'Antall relaterte videoer'
-    type: string
-    sql: ${TABLE}.a_relationcount_video
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: a_section
-    label: 'Seksjon'
-    type: string
-    sql: ${TABLE}.a_section
+# Abonnement
 
   - dimension: a_sub_bundle
     label: 'Bundlet publikasjon'
     type: string
     sql: ${TABLE}.a_sub_bundle
+    group_label: 'Abonnement og tilgang'
 
   - dimension: a_sub_class
     label: 'Tilgangstype' # owner, family, trial
     description: 'Gyldige verdier er "owner", "family" og "trial".'
     type: string
     sql: ${TABLE}.a_sub_class
-
-  - dimension: a_incentive
-    label: 'Insentivvisning'
-    description: 'Bruker fikk kun se en teaser av artikkelen.'
-    type: yesno
-    sql: case when ${TABLE}.a_sub_contentpresentation = 'teaser' then true else false end
+    group_label: 'Abonnement og tilgang'
 
   - dimension: a_sub_key
     label: 'Abonnement-ID'
     type: string
     sql: ${TABLE}.a_sub_key
-    group_label: 'Abonnement'
-
-  - dimension: a_premium
-    label: 'Plussartikkel'
-    type: yesno
-    sql: case when ${TABLE}.a_sub_model = 'total' then true else false end
-    group_label: 'Artikkel-informasjon'
+    group_label: 'Abonnement og tilgang'
 
   - dimension: a_sub_type
     label: 'Tittel- og produktkode'
     description: 'Abonnementets tittelkode og produktkode fra Infosoft (format: tittelkode_produktkode)'
     type: string
     sql: ${TABLE}.a_sub_type
-    group_label: 'Abonnement'
-
-  - dimension: a_plusslesing
-    label: 'Plusslesing'
-    type: yesno
-    sql: |
-    
-        CASE 
-          WHEN (${TABLE}.name IS NOT NULL 
-            and ${TABLE}.a_sub_model is not null 
-            and ${TABLE}.a_sub_model!='free' 
-            and ${TABLE}.a_sub_contentpresentation=='full') 
-          THEN true ELSE false END
-
-  - dimension: a_viewtype
-    label: 'Visningstype'
-    type: string
-    sql: |
-    
-        CASE 
-          WHEN (${TABLE}.name IS NOT NULL 
-            and ${TABLE}.a_sub_model is not null 
-            and ${TABLE}.a_sub_model!='free' 
-            and ${TABLE}.a_sub_contentpresentation=='full') 
-          THEN 'fullvisning' 
-          WHEN (${TABLE}.name IS NOT NULL 
-            and ${TABLE}.a_sub_model is not null 
-            and ${TABLE}.a_sub_model!='free' 
-            and ${TABLE}.a_sub_contentpresentation=='teaser') 
-          THEN 'incentiv'
-        ELSE 'aapen' END
+    group_label: 'Abonnement og tilgang'
 
 
-  - dimension: a_tag
-    label: 'Tag'
-    type: string
-    sql: ${TABLE}.a_tag
-
-  - dimension: a_timepublish
-    label: 'Publiseringstidspunkt'
-    type: string
-    sql: ${TABLE}.a_timepublish
-    group_label: 'Artikkel-informasjon' #SJEKK
-
-  - dimension: a_timeupdate
-    label: 'Oppdateringstidspunkt'
-    type: string
-    sql: ${TABLE}.a_timeupdate
-    group_label: 'Artikkel-informasjon' #SJEKK
-
-  - dimension: a_title
-    label: 'Tittel'
-    type: string
-    sql: ${TABLE}.a_title
-    group_label: 'Artikkel-informasjon' #SJEKK
+# aID-brukere
 
   - dimension: alder
     label: 'Alder'
@@ -345,6 +422,15 @@
     type: string
     sql: ${TABLE}.a_user_key
     group_label: 'aID-brukere'
+  
+  - dimension: a_user_staff
+    label: 'Ansatt i Amedia'
+    type: string
+    sql: ${TABLE}.a_user_staff
+    group_label: 'aID-brukere'
+    
+
+# aID-innlogging
 
   - dimension: a_user_login_error
     label: 'Feil i innloggingen'
@@ -364,49 +450,14 @@
     sql: ${TABLE}.a_user_login_step
     group_label: 'aID-innlogging'
 
-  - dimension: a_user_staff
-    label: 'Ansatt i Amedia'
-    type: string
-    sql: ${TABLE}.a_user_staff
-    group_label: 'aID-brukere'
 
-  - dimension: a_view
-    label: 'Visningsmodus'
-    description: 'Kan være mobile, tablet, desktop, responsice, smartphone' 
-    type: string
-    sql: ${TABLE}.a_view
-    group_label: 'Generelt'
-
-  - dimension: a_virtual
-    label: 'Avis'
-    description: 'F.eks. "fb" for www.f-b.no, "ba" for www.ba.no'
-    type: string
-    sql: ${TABLE}.a_virtual
-    group_label: 'Generelt'
-
-  - dimension: a_wordcount
-    label: 'Antall ord'
-    type: string
-    sql: ${TABLE}.a_wordcount
-    group_label: 'Artikkel-informasjon'
-
-  - dimension: browserid
-    label: 'Nettleser'
-    type: string
-    sql: ${TABLE}.browserid
-    group_label: 'Generelt'
+# SJEKK - dimensjoner vi må sjekke/diskutere/plassere
 
   - dimension_group: dataflow_insert_timestamp
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.dataflow_insert_timestamp
     group_label: 'SJEKK'
-
-  - dimension: extradata
-    label: 'Ekstra data'
-    type: string
-    sql: ${TABLE}.extradata
-    group_label: 'Generelt'
 
   - dimension: headers_accept
     type: string
@@ -438,7 +489,6 @@
     sql: ${TABLE}.headers_content_type
     group_label: 'SJEKK'
   
-
   - dimension: headers_referer
     type: string
     sql: ${TABLE}.headers_referer
@@ -459,45 +509,11 @@
     sql: ${TABLE}.ns_site
     group_label: 'SJEKK'
 
-  - dimension: referrer
-    label: 'Referrer'
-    type: string
-    sql: ${TABLE}.referrer
-    group_label: 'Generelt'
-  
-  - dimension: referrer_domain
-    label: 'Referrer-domene'
-    type: string
-    sql: DOMAIN(${TABLE}.referrer)
-    group_label: 'Generelt'
-
   - dimension: remoteip
     type: string
     sql: ${TABLE}.remoteip
     group_label: 'SJEKK'
-
-  - dimension_group: time
-    label: 'Tid'
-    type: time
-    timeframes: [time, date, week,hour, month]
-    sql: ${TABLE}.time
-    convert_tz: true
-    group_label: 'Generelt'
-
-  - dimension: url
-    label: 'URL (nettadresse)'
-    type: string
-    sql: ${TABLE}.url
-    group_label: 'Generelt'
-
-  - dimension: visitid
-    label: 'Besøks-ID'
-    type: string
-    sql: ${TABLE}.visitid
-    group_label: 'Generelt'
-
-
-
+    
 
 # Målinger
 
