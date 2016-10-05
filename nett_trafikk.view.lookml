@@ -253,6 +253,13 @@
     sql: case when ${TABLE}.a_sub_model = 'total' then true else false end
     group_label: 'Artikkel-informasjon'
 
+  - dimension: a_sub_type
+    label: 'Tittel- og produktkode'
+    description: 'Abonnementets tittelkode og produktkode fra Infosoft (format: tittelkode_produktkode)'
+    type: string
+    sql: ${TABLE}.a_sub_type
+    group_label: 'Abonnement'
+
   - dimension: a_plusslesing
     label: 'Plusslesing'
     type: yesno
@@ -283,13 +290,6 @@
           THEN 'incentiv'
         ELSE 'aapen' END
 
-
-  - dimension: a_sub_type
-    label: 'Tittel- og produktkode'
-    description: 'Abonnementets tittelkode og produktkode fra Infosoft (format: tittelkode_produktkode)'
-    type: string
-    sql: ${TABLE}.a_sub_type
-    group_label: 'Abonnement'
 
   - dimension: a_tag
     label: 'Tag'
