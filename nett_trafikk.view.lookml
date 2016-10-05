@@ -37,6 +37,7 @@
     sql: ${TABLE}.a_platform_version
     group_label: 'Generelt'
 
+
 # Artikkel-informasjon
 
   - dimension: a_acpid
@@ -102,6 +103,7 @@
     sql: integer(${TABLE}.a_gallery_totalcards)
     group_label: 'Bildegalleri'
     
+
 # Kjøpsløp
 
   - dimension: a_order_campaign
@@ -240,21 +242,16 @@
     type: yesno
     sql: case when ${TABLE}.a_sub_contentpresentation = 'teaser' then true else false end
 
-
-
   - dimension: a_sub_key
     label: 'Abonnement-ID'
     type: string
     sql: ${TABLE}.a_sub_key
 
-
-
   - dimension: a_premium
     label: 'Plussartikkel'
     type: yesno
     sql: case when ${TABLE}.a_sub_model = 'total' then true else false end
-
-
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_plusslesing
     label: 'Plusslesing'
@@ -290,82 +287,112 @@
 
 
   - dimension: a_sub_type
+    label: 'Tittel- og produktkode'
+    description: 'Abonnementets tittelkode og produktkode fra Infosoft (format: tittelkode_produktkode)'
     type: string
     sql: ${TABLE}.a_sub_type
+    group_label: 'Abonnement'
 
   - dimension: a_tag
+    label: 'Tag'
     type: string
     sql: ${TABLE}.a_tag
 
   - dimension: a_timepublish
+    label: 'Publiseringstidspunkt'
     type: string
     sql: ${TABLE}.a_timepublish
+    group_label: 'Artikkel-informasjon' #SJEKK
 
   - dimension: a_timeupdate
+    label: 'Oppdateringstidspunkt'
     type: string
     sql: ${TABLE}.a_timeupdate
+    group_label: 'Artikkel-informasjon' #SJEKK
 
   - dimension: a_title
+    label: 'Tittel'
     type: string
     sql: ${TABLE}.a_title
+    group_label: 'Artikkel-informasjon' #SJEKK
 
   - dimension: alder
+    label: 'Alder'
     type: number
     sql: case when ((integer(${TABLE}.a_user_age))>12 or (integer(${TABLE}.a_user_age)<100)) then integer(${TABLE}.a_user_age) else null end
+    group_label: 'aID-brukere'
 
   - dimension: aldersgrupper
+    label: 'Aldersgruppe'
     type: tier
     tiers: [12,20,30,40,50,60,70,80,90,100]
     style: classic
     sql: case when ((integer(${TABLE}.a_user_age))>12 or (integer(${TABLE}.a_user_age)<100)) then integer(${TABLE}.a_user_age) else null end
+    group_label: 'aID-brukere'
 
-  - dimension: a_user_aid_deck
+  - dimension: a_user_aid_deck #SJEKK - ???
     type: string
     sql: ${TABLE}.a_user_aid_deck
 
   - dimension: a_user_gender
+    label: 'Kjønn'
     type: string
     sql: ${TABLE}.a_user_gender
-
-  - dimension: a_user_id_source
-    type: string
-    sql: ${TABLE}.a_user_id_source
+    group_label: 'aID-brukere'
 
   - dimension: a_user_key
+    label: 'aID-bruker'
     type: string
     sql: ${TABLE}.a_user_key
+    group_label: 'aID-brukere'
 
   - dimension: a_user_login_error
+    label: 'Feil i innloggingen'
     type: string
     sql: ${TABLE}.a_user_login_error
+    group_label: 'aID-innlogging'
 
   - dimension: a_user_login_requested_url
+    label: 'Requested URL'
     type: string
     sql: ${TABLE}.a_user_login_requested_url
+    group_label: 'aID-innlogging'
 
   - dimension: a_user_login_step
+    label: 'Steg i innloggingen'
     type: string
     sql: ${TABLE}.a_user_login_step
+    group_label: 'aID-innlogging'
 
   - dimension: a_user_staff
+    label: 'Ansatt i Amedia'
     type: string
     sql: ${TABLE}.a_user_staff
+    group_label: 'aID-brukere'
 
   - dimension: a_view
+    label: 'Visningsmodus'
+    description: 'Kan være mobile, tablet, desktop, responsice, smartphone' 
     type: string
     sql: ${TABLE}.a_view
 
   - dimension: a_virtual
+    label: 'Avis'
+    description: 'F.eks. "fb" for www.f-b.no, "ba" for www.ba.no'
     type: string
     sql: ${TABLE}.a_virtual
 
   - dimension: a_wordcount
+    label: 'Antall ord'
     type: string
     sql: ${TABLE}.a_wordcount
+    group_label: 'Artikkel-informasjon'
 
   - dimension: browserid
+    label: 'Nettleser'
     type: string
     sql: ${TABLE}.browserid
+    group_label: 'Generelt'
 
   - dimension_group: dataflow_insert_timestamp
     type: time
@@ -531,6 +558,12 @@
     hidden: true
     type: string
     sql: ${TABLE}.a_sub_status
+  
+  # Deprecated ? #SJEKK
+  - dimension: a_user_id_source
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_user_id_source
   
   # Hidden by default?  
   - dimension_group: window_timestamp
