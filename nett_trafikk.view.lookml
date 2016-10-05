@@ -246,6 +246,7 @@
     label: 'Abonnement-ID'
     type: string
     sql: ${TABLE}.a_sub_key
+    group_label: 'Abonnement'
 
   - dimension: a_premium
     label: 'Plussartikkel'
