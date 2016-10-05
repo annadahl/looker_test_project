@@ -12,6 +12,7 @@
     label: 'Side'
     type: string
     sql: ${TABLE}.name
+    group_label: 'Generelt'
 
   - dimension: a_edition
     label: 'Utgave'
