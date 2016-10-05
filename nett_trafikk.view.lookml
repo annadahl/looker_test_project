@@ -329,9 +329,10 @@
     sql: case when ((integer(${TABLE}.a_user_age))>12 or (integer(${TABLE}.a_user_age)<100)) then integer(${TABLE}.a_user_age) else null end
     group_label: 'aID-brukere'
 
-  - dimension: a_user_aid_deck #SJEKK - ???
+  - dimension: a_user_aid_deck #SJEKK - hva er dette???
     type: string
     sql: ${TABLE}.a_user_aid_deck
+    group_label: 'SJEKK'
 
   - dimension: a_user_gender
     label: 'Kjønn'
@@ -374,12 +375,14 @@
     description: 'Kan være mobile, tablet, desktop, responsice, smartphone' 
     type: string
     sql: ${TABLE}.a_view
+    group_label: 'Generelt'
 
   - dimension: a_virtual
     label: 'Avis'
     description: 'F.eks. "fb" for www.f-b.no, "ba" for www.ba.no'
     type: string
     sql: ${TABLE}.a_virtual
+    group_label: 'Generelt'
 
   - dimension: a_wordcount
     label: 'Antall ord'
@@ -397,81 +400,101 @@
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.dataflow_insert_timestamp
+    group_label: 'SJEKK'
 
   - dimension: extradata
+    label: 'Ekstra data'
     type: string
     sql: ${TABLE}.extradata
+    group_label: 'Generelt'
 
   - dimension: headers_accept
     type: string
     sql: ${TABLE}.headers_accept
+    group_label: 'SJEKK'
 
   - dimension: headers_accept_encoding
     type: string
     sql: ${TABLE}.headers_accept_encoding
+    group_label: 'SJEKK'
 
   - dimension: headers_accept_language
     type: string
     sql: ${TABLE}.headers_accept_language
+    group_label: 'SJEKK'
 
   - dimension: headers_connection
     type: string
     sql: ${TABLE}.headers_connection
+    group_label: 'SJEKK'
 
   - dimension: headers_content_length
     type: string
     sql: ${TABLE}.headers_content_length
+    group_label: 'SJEKK'
 
   - dimension: headers_content_type
     type: string
     sql: ${TABLE}.headers_content_type
+    group_label: 'SJEKK'
   
 
   - dimension: headers_referer
     type: string
     sql: ${TABLE}.headers_referer
+    group_label: 'SJEKK'
 
   - dimension: headers_user_agent
     type: string
     sql: ${TABLE}.headers_user_agent
-
-  - dimension: sidenavn
-    type: string
-    sql: ${TABLE}.name
+    group_label: 'SJEKK'
 
   - dimension: ns_category
     type: string
     sql: ${TABLE}.ns_category
+    group_label: 'SJEKK'
 
   - dimension: ns_site
     type: string
     sql: ${TABLE}.ns_site
+    group_label: 'SJEKK'
 
   - dimension: referrer
+    label: 'Referrer'
     type: string
     sql: ${TABLE}.referrer
+    group_label: 'Generelt'
   
   - dimension: referrer_domain
+    label: 'Referrer-domene'
     type: string
     sql: DOMAIN(${TABLE}.referrer)
+    group_label: 'Generelt'
 
   - dimension: remoteip
     type: string
     sql: ${TABLE}.remoteip
+    group_label: 'SJEKK'
 
   - dimension_group: time
+    label: 'Tid'
     type: time
     timeframes: [time, date, week,hour, month]
     sql: ${TABLE}.time
     convert_tz: true
+    group_label: 'Generelt'
 
   - dimension: url
+    label: 'URL (nettadresse)'
     type: string
     sql: ${TABLE}.url
+    group_label: 'Generelt'
 
   - dimension: visitid
+    label: 'Besøks-ID'
     type: string
     sql: ${TABLE}.visitid
+    group_label: 'Generelt'
 
 
 
@@ -563,6 +586,12 @@
     hidden: true
     type: string
     sql: ${TABLE}.a_user_id_source
+  
+  # Used in filters, but duplicates page_name
+  - dimension: sidenavn
+    hidden: true
+    type: string
+    sql: ${TABLE}.name
   
   # Hidden by default?  
   - dimension_group: window_timestamp
