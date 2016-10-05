@@ -9,6 +9,7 @@
 # Generelt
 
   - dimension: page_name
+    label: 'Side'
     type: string
     sql: ${TABLE}.name
 
@@ -152,50 +153,70 @@
     group_label: 'Abonnementsbestilling (kjøpsløp)'
 
   - dimension: a_relationcount
-    label: 'Antall relasjoner'
+    label: 'Totalt antall relaterte elementer'
     type: number
     sql: integer(${TABLE}.a_relationcount)
     group_label: 'Artikkel-info'
 
   - dimension: a_relationcount_embed
+    label: 'Antall embedder'
     type: string
     sql: ${TABLE}.a_relationcount_embed
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_factbox
+    label: 'Antall faktabokser'
     type: string
     sql: ${TABLE}.a_relationcount_factbox
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_feature
+    label: 'Antall relaterte feature-artikler'
     type: string
     sql: ${TABLE}.a_relationcount_feature
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_gallery
+    label: 'Antall relaterte bildegallerier'
     type: string
     sql: ${TABLE}.a_relationcount_gallery
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_media
+    label: 'Antall relaterte media' #SJEKK
     type: string
     sql: ${TABLE}.a_relationcount_media
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_opinion
+    label: 'Antall relaterte debattartikler' #SJEKK
     type: string
     sql: ${TABLE}.a_relationcount_opinion
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_picture
+    label: 'Antall relaterte bilder'
     type: string
     sql: ${TABLE}.a_relationcount_picture
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_quote
+    label: 'Antall relaterte sitat'
     type: string
     sql: ${TABLE}.a_relationcount_quote
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_story
+    label: 'Antall relaterte artikler' #SJEKK!
     type: string
     sql: ${TABLE}.a_relationcount_story
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_relationcount_video
+    label: 'Antall relaterte videoer'
     type: string
     sql: ${TABLE}.a_relationcount_video
+    group_label: 'Artikkel-informasjon'
 
   - dimension: a_section
     label: 'Seksjon'
