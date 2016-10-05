@@ -293,7 +293,7 @@
             and ${TABLE}.a_sub_model!='free' 
             and ${TABLE}.a_sub_contentpresentation=='teaser') 
           THEN 'incentiv'
-        ELSE 'annet' END
+        ELSE 'aapen' END
 
   # TO BE CONTINUED...
 
