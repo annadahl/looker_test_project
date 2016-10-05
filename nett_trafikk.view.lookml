@@ -283,8 +283,6 @@
           THEN 'incentiv'
         ELSE 'aapen' END
 
-  # TO BE CONTINUED...
-
 
   - dimension: a_sub_type
     label: 'Tittel- og produktkode'
