@@ -223,16 +223,6 @@
     type: string
     sql: ${TABLE}.a_section
 
-  - dimension: a_sectiontype
-    hidden: true
-    type: string
-    sql: ${TABLE}.a_sectiontype
-
-  - dimension: a_sub_aid_customer_id
-    hidden: true
-    type: string
-    sql: ${TABLE}.a_sub_aid_customer_id
-
   - dimension: a_sub_bundle
     label: 'Bundlet publikasjon'
     type: string
@@ -244,47 +234,27 @@
     type: string
     sql: ${TABLE}.a_sub_class
 
-  - dimension: a_sub_contentpresentation ## beholder gammelt felt, men setter til hidden 
-    hidden: true
-    description: 'Bruker fikk kun se en teaser av artikkelen.'
-    type: string
-    sql: ${TABLE}.a_sub_contentpresentation
-
   - dimension: a_incentive
     label: 'Insentivvisning'
     description: 'Bruker fikk kun se en teaser av artikkelen.'
     type: yesno
     sql: case when ${TABLE}.a_sub_contentpresentation = 'teaser' then true else false end
 
-  - dimension: a_sub_id
-    hidden: true
-    type: string
-    sql: ${TABLE}.a_sub_id
 
-  - dimension: a_sub_id_source
-    hidden: true
-    type: string
-    sql: ${TABLE}.a_sub_id_source
 
   - dimension: a_sub_key
     label: 'Abonnement-ID'
     type: string
     sql: ${TABLE}.a_sub_key
 
-  - dimension: a_sub_model ##beholder gammelt felt, men setter til hidden
-    hidden: true
-    type: string
-    sql: ${TABLE}.a_sub_model
+
 
   - dimension: a_premium
     label: 'Plussartikkel'
     type: yesno
     sql: case when ${TABLE}.a_sub_model = 'total' then true else false end
 
-  - dimension: a_sub_status
-    hidden: true
-    type: string
-    sql: ${TABLE}.a_sub_status
+
 
   - dimension: a_plusslesing
     label: 'Plusslesing'
@@ -429,11 +399,6 @@
   - dimension: headers_content_type
     type: string
     sql: ${TABLE}.headers_content_type
-
-  - dimension: headers_origin
-    hidden: true
-    type: string
-    sql: ${TABLE}.headers_origin
   
 
   - dimension: headers_referer
@@ -482,11 +447,7 @@
     type: string
     sql: ${TABLE}.visitid
 
-  - dimension_group: window_timestamp
-    hidden: true
-    type: time
-    timeframes: [time, date, week, hour, month]
-    sql: ${TABLE}.window_timestamp
+
 
 
 # Målinger
@@ -526,3 +487,60 @@
 
 
 
+# Hidden
+
+  # SJEKK
+  - dimension: a_sectiontype
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sectiontype
+
+  # Not in use
+  - dimension: a_sub_aid_customer_id
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_aid_customer_id
+
+  # Use custom dimensions a_plusslesing and a_viewtype instead 
+  - dimension: a_sub_contentpresentation ## beholder gammelt felt, men setter til hidden 
+    hidden: true
+    description: 'Bruker fikk kun se en teaser av artikkelen.'
+    type: string
+    sql: ${TABLE}.a_sub_contentpresentation
+  
+  # Use custom dimensions a_plusslesing and a_viewtype instead 
+  - dimension: a_sub_model ##beholder gammelt felt, men setter til hidden
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_model
+  
+  # Subscription ID should not be exposed to (all) looker users, use a_sub_key for unique identification of customer
+  - dimension: a_sub_id
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_id  
+  
+  # Subscription ID should not be exposed to (all) looker users, use a_sub_key for unique identification of customer
+  - dimension: a_sub_id_source
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_id_source
+  
+  # Not in use atm (Hanuman won't give status expired)
+  - dimension: a_sub_status
+    hidden: true
+    type: string
+    sql: ${TABLE}.a_sub_status
+  
+  # Hidden by default?  
+  - dimension_group: window_timestamp
+    hidden: true
+    type: time
+    timeframes: [time, date, week, hour, month]
+    sql: ${TABLE}.window_timestamp
+  
+  # Hidden by default?  
+  - dimension: headers_origin
+    hidden: true
+    type: string
+    sql: ${TABLE}.headers_origin
