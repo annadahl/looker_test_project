@@ -287,7 +287,7 @@
             and ${TABLE}.a_sub_model is not null 
             and ${TABLE}.a_sub_model!='free' 
             and ${TABLE}.a_sub_contentpresentation=='full') 
-          THEN 'pluss' 
+          THEN 'fullvisning' 
           WHEN (${TABLE}.name IS NOT NULL 
             and ${TABLE}.a_sub_model is not null 
             and ${TABLE}.a_sub_model!='free' 
