@@ -89,12 +89,12 @@
     group_label: 'Generelt'
   
   - dimension_group: time
-    label: 'Tid'
+  #  label: 'Tid'
     type: time
     timeframes: [time, date, week,hour, month]
     sql: ${TABLE}.time
     convert_tz: true
-    group_label: 'Generelt'
+  #  group_label: 'Generelt'
 
   - dimension: url
     label: 'URL (nettadresse)'
