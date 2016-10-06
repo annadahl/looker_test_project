@@ -26,7 +26,7 @@
     sql: ${TABLE}.a_error
     group_label: 'Generelt'
 
-  - dimension: a_networksite
+  - dimension: a_networksite # SJEKK hvordan denne brukes
     label: 'Nettverksnettsted'
     type: string
     sql: ${TABLE}.a_networksite
@@ -625,3 +625,10 @@
     hidden: true
     type: string
     sql: ${TABLE}.headers_origin
+
+  # Apparently not in use, no data past month
+  - dimension: a_livenews
+    hidden: true 
+    label: 'Livenews?'
+    type: string
+    sql: ${TABLE}.a_livenews
