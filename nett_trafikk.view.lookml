@@ -454,11 +454,7 @@
 
 # SJEKK - dimensjoner vi må sjekke/diskutere/plassere
 
-  - dimension_group: dataflow_insert_timestamp
-    type: time
-    timeframes: [time, date, week, month]
-    sql: ${TABLE}.dataflow_insert_timestamp
-    group_label: 'SJEKK'
+
 
   - dimension: headers_accept
     type: string
@@ -554,6 +550,13 @@
 
 
 # Hidden
+
+  ## We only expose event timestamp.
+  - dimension_group: dataflow_insert_timestamp
+    hidden: true
+    type: time
+    timeframes: [time, date, week, month]
+    sql: ${TABLE}.dataflow_insert_timestamp
 
   # SJEKK
   - dimension: a_sectiontype
