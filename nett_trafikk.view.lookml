@@ -89,12 +89,12 @@
     group_label: 'Generelt'
   
   - dimension_group: time
-    label: 'Tid'
+  #  label: 'Tid'
     type: time
     timeframes: [time, date, week,hour, month]
     sql: ${TABLE}.time
     convert_tz: true
-    group_label: 'Generelt'
+  #  group_label: 'Generelt'
 
   - dimension: url
     label: 'URL (nettadresse)'
@@ -255,6 +255,14 @@
           THEN 'incentiv'
         ELSE 'aapen' END
     group_label: 'Artikkel-informasjon'
+
+#   - dimension: a_viewtype_sql_case
+#     group_label: 'Artikkel-informasjon'
+#     type: string
+#     sql_case:
+#       fullvisning: (${TABLE}.name IS NOT NULL and ${TABLE}.a_sub_model is not null and ${TABLE}.a_sub_model!='free' and ${TABLE}.a_sub_contentpresentation=='full') 
+      
+
 
   - dimension: a_plusslesing
     label: 'Plusslesing'
@@ -545,6 +553,18 @@
     type: count_distinct
     approximate_threshold: 10000
     sql: ${a_acpid}
+    
+#   - measure: filter_on_custom_measure_example
+#     sql: |
+#       custom_function(
+# 
+#           CASE WHEN value = 4 THEN ${a_acpid}
+#           ELSE NULL 
+#           END
+# 
+#           )
+
+      
     
 
 
